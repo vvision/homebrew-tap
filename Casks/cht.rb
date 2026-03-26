@@ -3,7 +3,7 @@ cask "cht" do
   name "cht"
   desc "Command-line tool to display cheatsheets"
   homepage "https://github.com/vvision/cht"
-  version "1.1.0"
+  version "1.1.1"
 
   livecheck do
     skip "Auto-generated on release."
@@ -14,27 +14,29 @@ cask "cht" do
   on_macos do
     on_intel do
       url "https://github.com/vvision/cht/releases/download/v#{version}/cht_#{version}_darwin_amd64.tar.gz"
-      sha256 "fe19cc7ef25151e686e39a92dd2e2088a490cf84237a368ad27338817cbf5923"
+      sha256 "b1b55f4d53b7de87df7e266988d2fd97287f882f23eb02039588aea482a86a5e"
     end
     on_arm do
       url "https://github.com/vvision/cht/releases/download/v#{version}/cht_#{version}_darwin_arm64.tar.gz"
-      sha256 "0393ac44444a9b4b54a5677b03d0bb56e7b57c04b8f3ae949c799234cb94ce59"
+      sha256 "51e8c07ad974fd6839c45c65056e73ebe978c2d5f668842673577c30abdc617c"
     end
   end
 
   on_linux do
     on_intel do
       url "https://github.com/vvision/cht/releases/download/v#{version}/cht_#{version}_linux_amd64.tar.gz"
-      sha256 "eaf51066e05451ff6ae31b2d0c5e3bb1250e89f9502a60337c25279e822b7b97"
+      sha256 "536e1cb4eaf13c520ef73e3426f3a33aafa1a57f190d22cd3e9f7a25196f65fc"
     end
     on_arm do
       url "https://github.com/vvision/cht/releases/download/v#{version}/cht_#{version}_linux_arm64.tar.gz"
-      sha256 "9bd0ae2836819bb4d1c6ee5bec918a67656c22c0cdd176ba1d3698517165fa7e"
+      sha256 "44fca523a132a287b57869a31affadce68bbcff00dcc89234c3dec61f7364644"
     end
   end
 
   postflight do
-    system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/cht"]
+    if OS.mac?
+      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/cht"]
+    end
   end
 
   # No zap stanza required
